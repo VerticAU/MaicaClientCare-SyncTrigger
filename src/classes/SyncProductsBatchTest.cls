@@ -130,7 +130,6 @@ private class SyncProductsBatchTest {
                 SELECT Id, maica_cc__Details__c
                 FROM maica_cc__Log__c
         ]);
-        System.debug(log.maica_cc__Details__c);
         Assert.isNotNull(log);
         Assert.areEqual('Attempt to de-reference a null object', log.maica_cc__Details__c, 'Error message should be \'Attempt to de-reference a null object\'');
     }

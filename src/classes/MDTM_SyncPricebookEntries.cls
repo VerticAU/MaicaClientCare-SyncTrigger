@@ -93,11 +93,9 @@ global without sharing class MDTM_SyncPricebookEntries extends maica_cc.MDTM.Han
                         UnitPrice = (Decimal) entry.maica_cc__Unit_Price__c,
                         IsActive = (Boolean) entry.maica_cc__Active__c
                 );
-                System.debug(newPricebookEntry);
                 newPricebookEntries.add(newPricebookEntry);
             }
         }
-        System.debug(newPricebookEntries);
         if (!newPricebookEntries.isEmpty()) {
             insert newPricebookEntries;
         }

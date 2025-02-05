@@ -415,6 +415,22 @@ private class Tests {
 
     }
 
+    @IsTest
+    static void coverUtils() {
+        Account acc = new Account(Name = 'Test', Type = 'Other', NumberOfEmployees = 10);
+        insert acc;
+        Account acc1 = new Account(Name = 'Test1', Type = 'Other', NumberOfEmployees = 11);
+        insert acc1;
+        Utils.picklists.getPicklistAsSetStrings(Account.Type);
+        Utils.picklists.convertFlowPicklistFieldValues(acc);
+        Utils.users.hasPermSetAssigned('Test');
+        Utils.sObjects.getSObjectDescribe(new List<SObjectType>{Account.SObjectType});
+        Decimal sum = Utils.sObjects.sum(new List<SObject>{acc, acc1}, Account.NumberOfEmployees);
+        Assert.isTrue(sum == 21);
+        String repUrl = Utils.URLs.generateReportURL('Test', new List<String>());
+        Assert.areEqual('/lightning/r/Report/null/view?queryScope=userFolders', repUrl);
+    }
+
 //    @IsTest
 //    static void testRemoveNonNumeric() {
 //
