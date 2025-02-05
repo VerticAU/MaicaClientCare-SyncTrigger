@@ -1,0 +1,14 @@
+.sf/
+.sfdx/
+.localdev/
+/IlluminatedCloud/
+/out/
+target/
+node_modules/
+/.illuminatedCloud/
+**/tsconfig*.json
+**/*.tsbuildinfo
+/.idea/
+/.illuminatedCloud/
+/IlluminatedCloud/
+/SYNC_OBJECTS_DEV.iml
