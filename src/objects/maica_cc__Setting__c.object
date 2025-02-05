@@ -12,14 +12,14 @@
             <valueSetDefinition>
                 <sorted>false</sorted>
                 <value>
-                    <fullName>Master to Standard</fullName>
+                    <fullName>Maica to Standard</fullName>
                     <default>false</default>
-                    <label>Master to Standard</label>
+                    <label>Maica to Standard</label>
                 </value>
                 <value>
-                    <fullName>Standard to Master</fullName>
+                    <fullName>Standard to Maica</fullName>
                     <default>false</default>
-                    <label>Standard to Master</label>
+                    <label>Standard to Maica</label>
                 </value>
             </valueSetDefinition>
         </valueSet>

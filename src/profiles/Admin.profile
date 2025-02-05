@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>maica_cc__Price_List__c.Price_Book__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>maica_cc__Price_List_Entry__c.Price_Book_Entry__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>maica_cc__Support_Item__c.Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Product2.Support_Item__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Pricebook2.Price_List__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>PricebookEntry.Price_List_Entry__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>maica_cc__Setting__c.Sync_Mode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>c
-        <editable>false</editable>
+        <editable>true</editable>
         <field>maica_cc__Setting__c.Sync_Direction__c</field>
         <readable>true</readable>
     </fieldPermissions>
