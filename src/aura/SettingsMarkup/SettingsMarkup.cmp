@@ -1,0 +1,55 @@
+<aura:component description="SettingsMarkup" access="public">
+    <!-- Attributes -->
+    <aura:attribute name="headerText" type="String" access="public" required="true"/>
+    <aura:attribute name="headerIconName" type="String" access="public"/>
+    <aura:attribute name="headerLearnMoreLink" type="String" access="public"/>
+    <aura:attribute name="headerAction" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="footer" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="actions" type="Aura.Component[]" access="public"/>
+    <aura:attribute name="isEdit" type="Boolean" default="{!false}" access="public"/>
+
+    <lightning:card class="slds-card_boundary SettingsMarkup">
+        <aura:set attribute="actions">
+            <div class="actions">
+                {!v.actions}
+            </div>
+        </aura:set>
+        <div class="slds-m-horizontal_small">
+            <!--HEADER-->
+            <div class="slds-page-header slds-m-bottom_medium" style="border-radius: 0.25rem;">
+                <div class="slds-text-title" style="font-size: large;">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-p-right_medium">
+                        <div class="slds-col">
+                            <lightning:icon iconName="{!v.headerIconName}" size="medium" class="slds-m-right_small"/>
+                            {!v.headerText}
+                        </div>
+                        <aura:if isTrue="{!not(empty(v.headerAction))}">
+                            <div class="slds-float_right slds-text-align_right slds-m-right_large">
+                                {!v.headerAction}
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!not(empty(v.headerLearnMoreLink))}">
+                            <div class="slds-float_right slds-text-body_regular">
+                                <a href="{!v.headerLearnMoreLink}" target="_blank">Learn more about {!v.headerText}</a>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+            <!--BODY-->
+            {!v.body}
+        </div>
+    </lightning:card>
+
+    <!--FOOTER-->
+    <hr/>
+    <div class="slds-text-align_center">
+        <aura:if isTrue="{!not(v.isEdit)}">
+            <lightning:button label="Edit" variant="brand" onclick="{!c.handleEditClick}"/>
+            <aura:set attribute="else">
+                {!v.footer}
+            </aura:set>
+        </aura:if>
+    </div>
+
+</aura:component>

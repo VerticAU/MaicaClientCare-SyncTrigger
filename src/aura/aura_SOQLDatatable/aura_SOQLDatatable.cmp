@@ -1,0 +1,31 @@
+<aura:component description="aura_SOQLDatatable" extends="c:aura_Datatable" access="public">
+
+    <!-- Attribute Overrides -->
+    <aura:set attribute="processor" value="SOQLDataTableMetaProc"/>
+    <aura:set attribute="hideContentOnBusy" value="{!false}"/>
+    <aura:set attribute="forceHiddenSpinner" value="{!true}"/>
+
+    <!-- Attributes -->
+    <aura:attribute name="wrapText" type="Boolean" default="false"/>
+    <aura:attribute name="sObjectType" required="{!true}" type="String" default="Contact"/>
+    <aura:attribute name="fields" type="String" default="Id, Email, Phone"/>
+    <aura:attribute name="condition" type="String"/>
+    <aura:attribute name="overrideColumns" type="List" default="[]"/>
+    <aura:attribute name="timestamp" type="String"/>
+    <aura:attribute name="limit" type="Integer" default="{! null }"/>
+    <aura:attribute name="countRecords" type="Integer" default="{! null }"/>
+    <aura:attribute name="hasMoreRecords" type="Boolean" default="{! false }"/>
+    <aura:attribute name="orderBy" type="String" default="Id ASC"/>
+
+    <!-- Methods -->
+    <aura:method name="refresh" action="{! c.handleRefresh }"/>
+
+    <!-- Events -->
+    <aura:registerEvent type="c:aura_ComponentEvent" name="onAfterSOQLDatatableRefresh"/>
+    <aura:registerEvent type="c:aura_ComponentEvent" name="onAfterSOQLDatatableLoad"/>
+
+    <!-- Handlers -->
+    <aura:handler name="onAfterDatatableLoad" event="c:aura_ComponentEvent" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.condition}" action="{!c.handleConditionChange}"/>
+
+</aura:component>

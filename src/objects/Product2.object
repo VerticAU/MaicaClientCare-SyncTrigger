@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Support_Item__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>Support Item</label>
+        <referenceTo>maica_cc__Support_Item__c</referenceTo>
+        <relationshipLabel>Products</relationshipLabel>
+        <relationshipName>Products</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Support_Category__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <description>Represents the Support Category that the Product belongs to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the Support Category that the Product belongs to.</inlineHelpText>
+        <label>Support Category</label>
+        <referenceTo>maica_cc__Support_Category__c</referenceTo>
+        <relationshipLabel>Products</relationshipLabel>
+        <relationshipName>Products</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Service_Day__c</fullName>
+        <description>The specific day or delivery window when the Product is eligible for Service Delivery.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The specific day or delivery window when the Product is eligible for Service Delivery.</inlineHelpText>
+        <label>Service Day</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Weekday</fullName>
+                    <default>false</default>
+                    <label>Weekday</label>
+                </value>
+                <value>
+                    <fullName>Saturday</fullName>
+                    <default>false</default>
+                    <label>Saturday</label>
+                </value>
+                <value>
+                    <fullName>Sunday</fullName>
+                    <default>false</default>
+                    <label>Sunday</label>
+                </value>
+                <value>
+                    <fullName>Public Holiday</fullName>
+                    <default>false</default>
+                    <label>Public Holiday</label>
+                </value>
+                <value>
+                    <fullName>Anytime</fullName>
+                    <default>true</default>
+                    <label>Anytime</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Service_Time__c</fullName>
+        <description>The specific time of day when the Product is eligible for Service Delivery.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The specific time of day when the Product is eligible for Service Delivery.</inlineHelpText>
+        <label>Service Time</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Daytime</fullName>
+                    <default>false</default>
+                    <label>Daytime</label>
+                </value>
+                <value>
+                    <fullName>Afternoon</fullName>
+                    <default>false</default>
+                    <label>Afternoon</label>
+                </value>
+                <value>
+                    <fullName>Evening</fullName>
+                    <default>false</default>
+                    <label>Evening</label>
+                </value>
+                <value>
+                    <fullName>Night</fullName>
+                    <default>false</default>
+                    <label>Night</label>
+                </value>
+                <value>
+                    <fullName>Anytime</fullName>
+                    <default>true</default>
+                    <label>Anytime</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+</CustomObject>

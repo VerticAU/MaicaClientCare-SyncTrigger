@@ -1,0 +1,28 @@
+<!-- LWC Error Messages -->
+<template>
+    <div data-id="container">
+        <template lwc:if={errors}>
+            <div class="pageLevelErrors" tabindex="-1">
+                <div class="desktop forcePageError" aria-live="assertive"
+                     data-aura-class="forcePageError">
+                    <div class="genericNotification" style="background-color: #B5443B; border-radius: 5px; color: white; padding: 10px;margin: 10px 0;">
+                        <span class="genericError uiOutputText" data-aura-class="uiOutputText">{title}</span>
+                    </div>
+                    <ul class="errorsList">
+                        <template for:each={errors} for:item="error" for:index="index">
+                            <li key={error.message} class="slds-text-color_error">
+                                <template lwc:if={error.message}>
+                                    {error.message}
+                                </template>
+                                <template if:false={error.message}>
+                                    {error}
+                                </template>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+                <br/>
+            </div>
+        </template>
+    </div>
+</template>

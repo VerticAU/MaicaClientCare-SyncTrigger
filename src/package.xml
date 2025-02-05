@@ -20,5 +20,35 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+    <types>
+        <members>Pricebook2.Price_List__c</members>
+        <members>PricebookEntry.Price_List_Entry__c</members>
+        <members>Product2.Service_Day__c</members>
+        <members>Product2.Service_Time__c</members>
+        <members>Product2.Support_Category__c</members>
+        <members>Product2.Support_Item__c</members>
+        <members>maica_cc__Price_List_Entry__c.Price_Book_Entry__c</members>
+        <members>maica_cc__Price_List__c.Price_Book__c</members>
+        <members>maica_cc__Setting__c.Sync_Direction__c</members>
+        <members>maica_cc__Setting__c.Sync_Mode__c</members>
+        <members>maica_cc__Support_Item__c.Product__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>maica_cc__Trigger_Handler.MDTM_SyncPriceLists</members>
+        <members>maica_cc__Trigger_Handler.MDTM_SyncPricebookEntries</members>
+        <members>maica_cc__Trigger_Handler.MDTM_SyncPricebooks</members>
+        <members>maica_cc__Trigger_Handler.MDTM_SyncProducts</members>
+        <members>maica_cc__Trigger_Handler.MDTM_SyncSupportItems</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Settings</members>
+        <name>CustomTab</name>
+    </types>
     <version>62.0</version>
 </Package>

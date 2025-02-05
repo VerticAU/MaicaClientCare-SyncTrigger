@@ -1,0 +1,7 @@
+<!-- LWC Spinner -->
+<template>
+    <template lwc:if={isBusy}>
+        <lightning-spinner variant={variant} size={size} alternative-text="Loading"></lightning-spinner>
+        <div class="label-container"><slot><span>{label}</span></slot></div>
+    </template>
+</template>
