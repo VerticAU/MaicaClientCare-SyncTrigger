@@ -28,6 +28,7 @@
                                          placeholder="Select a Sync Direction"
                                          options="{!v.meta.selectOptions.syncDirectionOptions}"
                                          required="{!true}"
+                                         labelHidden="{!true}"
                                          disabled="{!or(not(v.isEdit),v.isBusy)}"/>
                         </aura:if>
                     </div>
@@ -35,18 +36,30 @@
             </div>
         </lightning:card>
 
-        <lightning:card class="slds-card_boundary slds-m-bottom_medium slds-card_title-with-helptext">
+        <lightning:card class="slds-card_boundary slds-m-bottom_medium slds-card_title-with-helptext slds-card_header-no-flex">
             <aura:set attribute="title">
-                Mode
-                <lightning:helptext
-                        content="Based on the selected sync direction, the Mode determines how the sync is triggered:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-6">
+                        Mode
+                        <lightning:helptext
+                                content="Based on the selected sync direction, the Mode determines how the sync is triggered:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         - Triggered &ndash; The sync runs automatically when a record is created, updated, or deleted.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         - Scheduled &ndash; The sync runs daily at the specified time via a scheduled job.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         - On Demand &ndash; The sync runs manually when you click the Sync Now button."
-                />
+                        />
+                    </div>
+                    <aura:if isTrue="{!and(equals(v.meta.dto.setting.Sync_Direction__c, 'Standard to Maica'), equals(v.meta.dto.setting.Sync_Mode__c, 'Triggered'))}">
+                        <div class="slds-col slds-size_4-of-6">
+                            Price List Entries Sync
+                            <lightning:helptext
+                                    content="When Sync Direction = Standard to Maica and Mode = Triggered, a Salesforce platform limitation requires you to manually trigger the Price List Entry record sync."
+                            />
+                        </div>
+                    </aura:if>
+                </div>
             </aura:set>
             <div class="slds-m-horizontal_small">
-                <div class="slds-grid slds-gutters slds-m-bottom_medium slds-grid_vertical-align-end slds-wrap">
+                <div class="slds-grid slds-gutters slds-m-bottom_medium slds-grid_vertical-align-top slds-wrap">
                     <div class="slds-col slds-size_2-of-6">
                         <aura:if isTrue="{!not(empty(v.meta.selectOptions.syncModeOptions))}">
                             <c:lwcSelect label="Sync Mode"
@@ -54,9 +67,61 @@
                                          placeholder="Select a Sync Mode"
                                          options="{!v.meta.selectOptions.syncModeOptions}"
                                          required="{!true}"
+                                         labelHidden="{!true}"
                                          disabled="{!or(not(v.isEdit),v.isBusy)}"/>
                         </aura:if>
                     </div>
+
+                    <aura:if isTrue="{!and(equals(v.meta.dto.setting.Sync_Direction__c, 'Standard to Maica'), equals(v.meta.dto.setting.Sync_Mode__c, 'Triggered'))}">
+                        <div class="slds-col slds-size_4-of-6">
+                            <!--                        <div class="slds-col slds-size_2-of-6">-->
+                            <!--                            <lightning:input type="time"-->
+                            <!--                                             label="Daily Price List Entry Sync Time"-->
+                            <!--                                             required="{!true}"-->
+                            <!--                                             value="{!v.meta.dto.entriesSyncTime}"-->
+                            <!--                                             disabled="{!or(not(v.isEdit),v.isBusy)}"-->
+                            <!--                            />-->
+                            <!--                        </div>-->
+
+                            <!--                        <div class="slds-col slds-size_4-of-6">-->
+                            <!--                        </div>-->
+                            <c:aura_BatchProgress aura:id="syncEntriesProcessor"
+                                                  response="{!v.meta.syncEntriesResponse}"
+                                                  job="{!v.meta.syncEntriesJob}"
+                                                  wrapTextInLogs="{!true}"
+                                                  jobId="{!v.meta.syncEntriesResponse.dto.jobId}"
+                                                  totalErrors="{!v.meta.syncEntriesTotalErrors}"
+                                                  onComplete="{!c.handleSyncPriceListEntriesComplete}">
+
+                                <aura:set attribute="initial">
+                                    <lightning:button label="Sync Now"
+                                                      variant="brand"
+                                                      title="Price List Entries Sync"
+                                                      onclick="{!c.handleSyncPriceListEntries}"
+                                                      disabled="{!or(not(v.isEdit),v.isBusy)}"/>
+                                </aura:set>
+
+                                <aura:set attribute="prePending">
+                                    <p>
+                                        <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
+                                        Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
+                                    </p>
+                                </aura:set>
+                                <aura:set attribute="preSuccess">
+                                    <p>
+                                        <aura:if isTrue="{!v.meta.syncEntriesTotalErrors}">
+                                            <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
+                                            Processing your Price List Entries sync request... Completed with errors!
+                                            <aura:set attribute="else">
+                                                <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
+                                                Processing your Price List Entries sync request... Completed.
+                                            </aura:set>
+                                        </aura:if>
+                                    </p>
+                                </aura:set>
+                            </c:aura_BatchProgress>
+                        </div>
+                    </aura:if>
 
                     <div class="slds-col slds-size_4-of-6">
                     </div>
@@ -119,62 +184,62 @@
                                                 <lightning:button label="Sync Price Lists" variant="brand" onclick="{!c.handleSyncPriceLists}" disabled="{!or(not(v.isEdit),v.isBusy)}"/>
                                             </aura:set>
 
-                                                <aura:set attribute="prePending">
-                                                    <p>
-                                                        <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
-                                                        Processing your Price Lists sync request... Please wait a few moments and do not navigate away from this window.
-                                                    </p>
-                                                </aura:set>
+                                            <aura:set attribute="prePending">
+                                                <p>
+                                                    <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
+                                                    Processing your Price Lists sync request... Please wait a few moments and do not navigate away from this window.
+                                                </p>
+                                            </aura:set>
 
-                                                <aura:set attribute="preSuccess">
-                                                    <p>
-                                                        <aura:if isTrue="{!v.meta.syncPriceListsTotalErrors}">
-                                                            <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
-                                                            Processing your Price Lists sync request... Completed with errors!
-                                                            <aura:set attribute="else">
-                                                                <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
-                                                                Processing your Price Lists sync request... Completed.
-                                                            </aura:set>
-                                                        </aura:if>
-                                                    </p>
-                                                </aura:set>
-                                                <aura:set attribute="afterSuccess">
-                                                    <aura:if isTrue="{!and(equals(v.meta.syncSupportItemsTotalErrors, 0), equals(v.meta.syncPriceListsTotalErrors, 0))}">
-                                                        <c:aura_BatchProgress aura:id="syncPriceListEntriesProcessor"
-                                                                              response="{!v.meta.syncPriceListEntriesResponse}"
-                                                                              job="{!v.meta.syncPriceListEntriesJob}"
-                                                                              wrapTextInLogs="{!true}"
-                                                                              jobId="{!v.meta.syncPriceListEntriesResponse.dto.jobId}"
-                                                                              totalErrors="{!v.meta.syncPriceListEntriesTotalErrors}"
-                                                                              onComplete="{!c.handleSyncPriceListEntriesComplete}">
-                                                            <aura:set attribute="initial">
-                                                                <lightning:button label="Sync Price List Entries" variant="brand" onclick="{!c.handleSyncPriceListEntries}"
-                                                                                  disabled="{!or(not(v.isEdit),v.isBusy)}"/>
-                                                            </aura:set>
-
-                                                            <aura:set attribute="prePending">
-                                                                <p>
-                                                                    <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
-                                                                    Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
-                                                                </p>
-                                                            </aura:set>
-
-                                                            <aura:set attribute="preSuccess">
-                                                                <p>
-                                                                    <aura:if isTrue="{!v.meta.syncPriceListEntriesTotalErrors}">
-                                                                        <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
-                                                                        Processing your Price List Entries sync request... Completed with errors!
-                                                                        <aura:set attribute="else">
-                                                                            <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
-                                                                            Processing your Price List Entries sync request... Completed.
-                                                                        </aura:set>
-                                                                    </aura:if>
-                                                                </p>
-                                                            </aura:set>
-                                                        </c:aura_BatchProgress>
+                                            <aura:set attribute="preSuccess">
+                                                <p>
+                                                    <aura:if isTrue="{!v.meta.syncPriceListsTotalErrors}">
+                                                        <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
+                                                        Processing your Price Lists sync request... Completed with errors!
+                                                        <aura:set attribute="else">
+                                                            <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
+                                                            Processing your Price Lists sync request... Completed.
+                                                        </aura:set>
                                                     </aura:if>
-                                                </aura:set>
-                                            </c:aura_BatchProgress>
+                                                </p>
+                                            </aura:set>
+                                            <aura:set attribute="afterSuccess">
+                                                <aura:if isTrue="{!and(not(v.meta.syncSupportItemsTotalErrors), not(v.meta.syncPriceListsTotalErrors))}">
+                                                    <c:aura_BatchProgress aura:id="syncPriceListEntriesProcessor"
+                                                                          response="{!v.meta.syncPriceListEntriesResponse}"
+                                                                          job="{!v.meta.syncPriceListEntriesJob}"
+                                                                          wrapTextInLogs="{!true}"
+                                                                          jobId="{!v.meta.syncPriceListEntriesResponse.dto.jobId}"
+                                                                          totalErrors="{!v.meta.syncPriceListEntriesTotalErrors}"
+                                                                          onComplete="{!c.handleSyncPriceListEntriesComplete}">
+                                                        <aura:set attribute="initial">
+                                                            <lightning:button label="Sync Price List Entries" variant="brand" onclick="{!c.handleSyncPriceListEntries}"
+                                                                              disabled="{!or(not(v.isEdit),v.isBusy)}"/>
+                                                        </aura:set>
+
+                                                        <aura:set attribute="prePending">
+                                                            <p>
+                                                                <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
+                                                                Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
+                                                            </p>
+                                                        </aura:set>
+
+                                                        <aura:set attribute="preSuccess">
+                                                            <p>
+                                                                <aura:if isTrue="{!v.meta.syncPriceListEntriesTotalErrors}">
+                                                                    <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
+                                                                    Processing your Price List Entries sync request... Completed with errors!
+                                                                    <aura:set attribute="else">
+                                                                        <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
+                                                                        Processing your Price List Entries sync request... Completed.
+                                                                    </aura:set>
+                                                                </aura:if>
+                                                            </p>
+                                                        </aura:set>
+                                                    </c:aura_BatchProgress>
+                                                </aura:if>
+                                            </aura:set>
+                                        </c:aura_BatchProgress>
                                     </aura:set>
                                 </c:aura_BatchProgress>
                             </aura:if>
@@ -244,7 +309,7 @@
                                                 </p>
                                             </aura:set>
                                             <aura:set attribute="afterSuccess">
-                                                <aura:if isTrue="{!and(equals(v.meta.syncProductsTotalErrors, 0), equals(v.meta.syncPricebooksTotalErrors, 0))}">
+                                                <aura:if isTrue="{!and(not(v.meta.syncProductsTotalErrors), not(v.meta.syncPricebooksTotalErrors))}">
                                                     <c:aura_BatchProgress aura:id="syncPricebookEntriesProcessor"
                                                                           response="{!v.meta.syncPricebookEntriesResponse}"
                                                                           job="{!v.meta.syncPricebookEntriesJob}"
@@ -288,66 +353,6 @@
                 </div>
             </div>
         </lightning:card>
-
-        <aura:if isTrue="{!and(equals(v.meta.dto.setting.Sync_Direction__c, 'Standard to Maica'), equals(v.meta.dto.setting.Sync_Mode__c, 'Triggered'))}">
-            <lightning:card class="slds-card_boundary slds-card_title-with-helptext">
-                <aura:set attribute="title">
-                    Price List Entries Sync
-                    <lightning:helptext
-                            content="When Sync Direction = Standard to Maica and Mode = Triggered, a Salesforce platform limitation requires you to manually trigger the Price List Entry record sync. Alternatively, a scheduled job will run at the specified time daily."
-                    />
-                </aura:set>
-                <div class="slds-m-horizontal_small">
-                    <div class="slds-grid slds-gutters slds-m-bottom_medium slds-grid_vertical-align-end slds-wrap">
-<!--                        <div class="slds-col slds-size_2-of-6">-->
-<!--                            <lightning:input type="time"-->
-<!--                                             label="Daily Price List Entry Sync Time"-->
-<!--                                             required="{!true}"-->
-<!--                                             value="{!v.meta.dto.entriesSyncTime}"-->
-<!--                                             disabled="{!or(not(v.isEdit),v.isBusy)}"-->
-<!--                            />-->
-<!--                        </div>-->
-
-<!--                        <div class="slds-col slds-size_4-of-6">-->
-<!--                        </div>-->
-
-                        <div class="slds-col slds-size_4-of-6 slds-m-top_medium">
-                            <c:aura_BatchProgress aura:id="syncEntriesProcessor"
-                                                  response="{!v.meta.syncEntriesResponse}"
-                                                  job="{!v.meta.syncEntriesJob}"
-                                                  wrapTextInLogs="{!true}"
-                                                  jobId="{!v.meta.syncEntriesResponse.dto.jobId}"
-                                                  totalErrors="{!v.meta.syncEntriesTotalErrors}"
-                                                  onComplete="{!c.handleSyncPriceListEntriesComplete}">
-
-                                <aura:set attribute="initial">
-                                    <lightning:button label="Sync Now" variant="brand" onclick="{!c.handleSyncPriceListEntries}" disabled="{!or(not(v.isEdit),v.isBusy)}"/>
-                                </aura:set>
-
-                                <aura:set attribute="prePending">
-                                    <p>
-                                        <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
-                                        Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
-                                    </p>
-                                </aura:set>
-                                <aura:set attribute="preSuccess">
-                                    <p>
-                                        <aura:if isTrue="{!v.meta.syncEntriesTotalErrors}">
-                                            <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
-                                            Processing your Price List Entries sync request... Completed with errors!
-                                            <aura:set attribute="else">
-                                                <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
-                                                Processing your Price List Entries sync request... Completed.
-                                            </aura:set>
-                                        </aura:if>
-                                    </p>
-                                </aura:set>
-                            </c:aura_BatchProgress>
-                        </div>
-                    </div>
-                </div>
-            </lightning:card>
-        </aura:if>
 
         <aura:set attribute="footer">
             <lightning:button label="Save"

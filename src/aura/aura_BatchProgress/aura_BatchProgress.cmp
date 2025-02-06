@@ -33,7 +33,7 @@
                                       sObjectType="maica_cc__Log__c"
                                       wrapText="{!v.wrapTextInLogs}"
                                       fields="maica_cc__Details__c"
-                                      condition="{!'maica_cc__Job_Id__c = \'' + v.jobId + '\' AND maica_cc__Type__c = \'Error\''}"
+                                      condition="{!'maica_cc__Job_Id__c = \'' + v.jobId + '\' AND maica_cc__Job_Id__c != NULL AND maica_cc__Type__c = \'Error\''}"
                                       limit="10"
                                       orderBy="CreatedDate DESC"
                                       overrideColumns="{!v.overrideColumns}"

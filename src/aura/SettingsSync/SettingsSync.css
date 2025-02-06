@@ -1,3 +1,7 @@
 .THIS .slds-card_title-with-helptext .slds-form-element__icon {
     padding-top: 0;
 }
+
+.THIS .slds-card_header-no-flex .slds-card__header-title {
+    display: inherit;
+}

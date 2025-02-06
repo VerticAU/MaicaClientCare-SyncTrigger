@@ -9,6 +9,10 @@
         helper
             .submit(cmp, helper)
             .then(response => {
+                let proc = cmp.find('syncSupportItemsProcessor') || cmp.find('syncProductsProcessor') || cmp.find('syncEntriesProcessor');
+                if(proc){
+                    proc.setStage('initial');
+                }
                 cmp.set('v.isEdit', false);
                 return helper.init(cmp);
             });
