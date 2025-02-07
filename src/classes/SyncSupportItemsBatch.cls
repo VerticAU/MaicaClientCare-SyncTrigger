@@ -27,6 +27,7 @@ public without sharing class SyncSupportItemsBatch extends AbstractProcessor imp
             queryFactory.setCondition('Id IN :scope');
             List<Product2> records = Database.query(queryFactory.toSOQL());
             MDTM_SyncSupportItems.sync(records);
+            throw new Structs.AccessException('Test');
         } catch (Exception e) {
             maica_cc__Log__c logVar = new maica_cc__Log__c(
                     maica_cc__Details__c = e.getMessage(),
