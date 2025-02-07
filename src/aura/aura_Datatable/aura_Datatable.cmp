@@ -1,6 +1,6 @@
 <aura:component description="aura_Datatable" extensible="true" extends="c:aura_Base" access="public">
 
-    <ltng:require scripts="{!$Resource.Resources + '/lodash/lodash.min.js'}"
+    <ltng:require scripts="{!$Resource.lodash + '/lodash.min.js'}"
                   afterScriptsLoaded="{!c.handleScriptsLoaded}"
     />
 
