@@ -1,3 +1,5 @@
+[![Deploy to Salesforce](https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png)](https://githubsfdeploy.herokuapp.com)
+
 ## Solution Overview
 
 The **Maica Sync Trigger for Products <> Support Items** automates the bi-directional synchronisation of **Maica Support Item, Price List, and Price List Entry** records with **Salesforce Product, Price Book, and Price Book Entry** records.
@@ -35,5 +37,3 @@ The **Product Sync Management** tab in **Organisation Settings** tab allows you 
        - **On Demand** → Manually triggered when needed using the Sync Now button.
 
     *Tip*: If you require **real-time updates**, use **Triggered Mode**. If you want manual control, use **On Demand**. Important: If the sync direction is Standard to Maica, Price List Entries must be synced manually due to Salesforce limitations.
-
-[![Deploy to Salesforce](https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png)](https://githubsfdeploy.herokuapp.com)
