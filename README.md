@@ -33,7 +33,7 @@ The **Product Sync Management** tab in **Organisation Settings** tab allows you 
 3. **Select Sync Mode** 
    - The **Mode** defines when and how the sync process runs.
        - **Triggered** → Runs automatically when records are created, updated, or deleted.
-       - **Scheduled** → Runs once daily at a specified time (Not available for Price List Entries).
+       - **Scheduled** → Runs once daily at a specified time.
        - **On Demand** → Manually triggered when needed using the Sync Now button.
 
-    *Tip*: If you require **real-time updates**, use **Triggered Mode**. If you want manual control, use **On Demand**. Important: If the sync direction is Standard to Maica, Price List Entries must be synced manually due to Salesforce limitations.
+    *Tip*: If you require **real-time updates**, use **Triggered Mode**. If you want manual control, use **On Demand**. Important: If the sync direction is Standard to Maica and mode is Triggered, Price List Entries must be synced manually due to Salesforce limitations.
