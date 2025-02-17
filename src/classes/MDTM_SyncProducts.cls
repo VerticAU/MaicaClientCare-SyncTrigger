@@ -19,17 +19,23 @@ global without sharing class MDTM_SyncProducts extends maica_cc.MDTM.Handler imp
     }
 
     public static void sync(List<SObject> records) {
-        new SyncObjectsProc().process(new Map<String, Object>{
-                'sObjectType1' => 'maica_cc__Support_Item__c',
-                'relationshipFieldToObj2Str' => 'Product__c',
-                'sObjectType2' => 'Product2',
-                'relationshipFieldToObj1Str' => 'Support_Item__c',
-                'obj1Records' => new AutoMapper().getSObjectsAsMaps(records),
-                'isDelete' => Trigger.isDelete == true,
-                'isCustomToStandard' => true,
-                'differentFieldsMap' => new Map<String, Object>{
-                        'maica_cc__Active__c' => 'IsActive'
-                }
-        });
+        try{
+            new SyncObjectsProc().process(new Map<String, Object>{
+                    'sObjectType1' => 'maica_cc__Support_Item__c',
+                    'relationshipFieldToObj2Str' => 'Product__c',
+                    'sObjectType2' => 'Product2',
+                    'relationshipFieldToObj1Str' => 'Support_Item__c',
+                    'obj1Records' => new AutoMapper().getSObjectsAsMaps(records),
+                    'isDelete' => Trigger.isDelete == true,
+                    'isCustomToStandard' => true,
+                    'differentFieldsMap' => new Map<String, Object>{
+                            'maica_cc__Active__c' => 'IsActive'
+                    }
+            });
+        } catch (Exception e) {
+            for(SObject record :records){
+                record.addError(e.getMessage());
+            }
+        }
     }
 }
