@@ -22,7 +22,7 @@ private class SyncPriceListsBatchTest {
         Assert.isTrue(resp.isValid);
 
         Test.startTest();
-        Database.executeBatch(new SyncPriceListsBatch(true), 100);
+        Database.executeBatch(new SyncPriceListsBatch(true), 1);
         Test.stopTest();
 
         Pricebook2 pbVar = (Pricebook2) Utils.arrays.firstOrException([
@@ -56,7 +56,7 @@ private class SyncPriceListsBatchTest {
         update pbVar;
 
         Test.startTest();
-        Database.executeBatch(new SyncPriceListsBatch(), 100);
+        Database.executeBatch(new SyncPriceListsBatch(), 1);
         Test.stopTest();
 
         maica_cc__Price_List__c priceListVar = (maica_cc__Price_List__c) Utils.arrays.firstOrNull([
@@ -79,7 +79,7 @@ private class SyncPriceListsBatchTest {
         delete pbVar;
 
         Test.startTest();
-        Database.executeBatch(new SyncPriceListsBatch(), 100);
+        Database.executeBatch(new SyncPriceListsBatch(), 1);
         Test.stopTest();
 
         maica_cc__Price_List__c priceListVar = (maica_cc__Price_List__c) Utils.arrays.firstOrNull([

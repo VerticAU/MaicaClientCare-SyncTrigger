@@ -42,7 +42,7 @@ private class SyncProductsBatchTest {
                 WHERE Id = :jobId
         ]);
         Assert.isNotNull(ct);
-        Database.executeBatch(new SyncProductsBatch(true), 100);
+        Database.executeBatch(new SyncProductsBatch(true), 1);
         Test.stopTest();
 
         maica_cc__Support_Item__c supportItemVar = (maica_cc__Support_Item__c) Utils.arrays.firstOrException([
@@ -87,7 +87,7 @@ private class SyncProductsBatchTest {
         update supportItemVar;
 
         Test.startTest();
-        Database.executeBatch(new SyncProductsBatch(), 100);
+        Database.executeBatch(new SyncProductsBatch(), 1);
         Test.stopTest();
 
         Product2 product2Var = (Product2) Utils.arrays.firstOrNull([
@@ -110,7 +110,7 @@ private class SyncProductsBatchTest {
         delete supportItemVar;
 
         Test.startTest();
-        Database.executeBatch(new SyncProductsBatch(), 100);
+        Database.executeBatch(new SyncProductsBatch(), 1);
         Test.stopTest();
 
         Product2 product2Var = (Product2) Utils.arrays.firstOrNull([

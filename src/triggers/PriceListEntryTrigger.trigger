@@ -1,10 +1,11 @@
-trigger PriceListEntryTrigger on maica_cc__Price_List_Entry__c (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
-    try{
+trigger PriceListEntryTrigger on maica_cc__Price_List_Entry__c (after insert, after update, after delete) {
+    try {
         maica_cc.MDTM.handle();
     } catch (Exception e) {
-        List<SObject> records = Trigger.new != null ? Trigger.new : Trigger.old;
-        for(SObject record :records){
-            record.addError(e.getMessage());
+        if (Trigger.new != null) {
+            for (SObject record : Trigger.new) {
+                record.addError(e.getMessage());
+            }
         }
     }
 }

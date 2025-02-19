@@ -19,7 +19,7 @@ global without sharing class MDTM_SyncProducts extends maica_cc.MDTM.Handler imp
     }
 
     public static void sync(List<SObject> records) {
-        try{
+//        try{
             new SyncObjectsProc().process(new Map<String, Object>{
                     'sObjectType1' => 'maica_cc__Support_Item__c',
                     'relationshipFieldToObj2Str' => 'Product__c',
@@ -32,10 +32,13 @@ global without sharing class MDTM_SyncProducts extends maica_cc.MDTM.Handler imp
                             'maica_cc__Active__c' => 'IsActive'
                     }
             });
-        } catch (Exception e) {
-            for(SObject record :records){
-                record.addError(e.getMessage());
-            }
-        }
+//        } catch (Exception e) {
+//            System.debug('here');
+//            if(Trigger.new != null){
+//                for(SObject record :Trigger.new){
+//                    record.addError(e.getMessage());
+//                }
+//            }
+//        }
     }
 }

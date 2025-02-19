@@ -10,7 +10,7 @@ public without sharing class SyncSupportItemsBatch extends AbstractProcessor imp
     }
 
     public void execute(SchedulableContext sc) {
-        Database.executeBatch(new SyncSupportItemsBatch(true), 100);
+        Database.executeBatch(new SyncSupportItemsBatch(true), 1);
     }
 
     public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -53,7 +53,7 @@ public without sharing class SyncSupportItemsBatch extends AbstractProcessor imp
         if (errorLogs.isEmpty()) {
             delete [SELECT Id FROM maica_cc__Support_Item__c WHERE Product__c = NULL];
             if (this.isScheduled) {
-                Database.executeBatch(new SyncPriceListsBatch(true), 100);
+                Database.executeBatch(new SyncPriceListsBatch(true), 1);
             }
         }
     }
@@ -61,7 +61,7 @@ public without sharing class SyncSupportItemsBatch extends AbstractProcessor imp
     public override Response process(Request request) {
         this.request = request;
 
-        String jobId = Database.executeBatch(this, 100);
+        String jobId = Database.executeBatch(this, 1);
         this.response.put('jobId', jobId);
 
         return this.response;

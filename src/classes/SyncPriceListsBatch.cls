@@ -50,7 +50,7 @@ public without sharing class SyncPriceListsBatch extends AbstractProcessor imple
         if (errorLogs.isEmpty()) {
             delete [SELECT Id FROM maica_cc__Price_List__c WHERE Price_Book__c = NULL];
             if (this.isScheduled) {
-                Database.executeBatch(new SyncPriceListEntriesBatch(), 100);
+                Database.executeBatch(new SyncPriceListEntriesBatch(), 1);
             }
         }
     }
@@ -58,7 +58,7 @@ public without sharing class SyncPriceListsBatch extends AbstractProcessor imple
     public override Response process(Request request) {
         this.request = request;
 
-        String jobId = Database.executeBatch(this, 100);
+        String jobId = Database.executeBatch(this, 1);
         this.response.put('jobId', jobId);
 
         return this.response;

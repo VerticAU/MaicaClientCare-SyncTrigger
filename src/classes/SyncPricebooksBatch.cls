@@ -49,7 +49,7 @@ public without sharing class SyncPricebooksBatch extends AbstractProcessor imple
         if (errorLogs.isEmpty()) {
             delete [SELECT Id FROM Pricebook2 WHERE Price_List__c = NULL AND Pricebook2.IsStandard = FALSE];
             if (this.isScheduled) {
-                Database.executeBatch(new SyncPricebookEntriesBatch(), 100);
+                Database.executeBatch(new SyncPricebookEntriesBatch(), 1);
             }
         }
     }
@@ -57,7 +57,7 @@ public without sharing class SyncPricebooksBatch extends AbstractProcessor imple
     public override Response process(Request request) {
         this.request = request;
 
-        String jobId = Database.executeBatch(this, 100);
+        String jobId = Database.executeBatch(this, 1);
         this.response.put('jobId', jobId);
 
         return this.response;

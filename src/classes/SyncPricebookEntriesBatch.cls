@@ -43,7 +43,7 @@ public without sharing class SyncPricebookEntriesBatch extends AbstractProcessor
     public override Response process(Request request) {
         this.request = request;
 
-        String jobId = Database.executeBatch(this, 100);
+        String jobId = Database.executeBatch(this, 1);
         this.response.put('jobId', jobId);
 
         return this.response;
