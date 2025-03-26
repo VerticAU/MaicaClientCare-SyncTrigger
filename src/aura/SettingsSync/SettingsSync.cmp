@@ -204,40 +204,40 @@
                                                 </p>
                                             </aura:set>
                                             <aura:set attribute="afterSuccess">
-                                                <aura:if isTrue="{!and(not(v.meta.syncSupportItemsTotalErrors), not(v.meta.syncPriceListsTotalErrors))}">
-                                                    <c:aura_BatchProgress aura:id="syncPriceListEntriesProcessor"
-                                                                          response="{!v.meta.syncPriceListEntriesResponse}"
-                                                                          job="{!v.meta.syncPriceListEntriesJob}"
-                                                                          wrapTextInLogs="{!true}"
-                                                                          jobId="{!v.meta.syncPriceListEntriesResponse.dto.jobId}"
-                                                                          totalErrors="{!v.meta.syncPriceListEntriesTotalErrors}"
-                                                                          onComplete="{!c.handleSyncPriceListEntriesComplete}">
-                                                        <aura:set attribute="initial">
-                                                            <lightning:button label="Sync Price List Entries" variant="brand" onclick="{!c.handleSyncPriceListEntries}"
-                                                                              disabled="{!or(not(v.isEdit),v.isBusy)}"/>
-                                                        </aura:set>
+                                                <!--                                                <aura:if isTrue="{!and(not(v.meta.syncSupportItemsTotalErrors), not(v.meta.syncPriceListsTotalErrors))}">-->
+                                                <c:aura_BatchProgress aura:id="syncPriceListEntriesProcessor"
+                                                                      response="{!v.meta.syncPriceListEntriesResponse}"
+                                                                      job="{!v.meta.syncPriceListEntriesJob}"
+                                                                      wrapTextInLogs="{!true}"
+                                                                      jobId="{!v.meta.syncPriceListEntriesResponse.dto.jobId}"
+                                                                      totalErrors="{!v.meta.syncPriceListEntriesTotalErrors}"
+                                                                      onComplete="{!c.handleSyncPriceListEntriesComplete}">
+                                                    <aura:set attribute="initial">
+                                                        <lightning:button label="Sync Price List Entries" variant="brand" onclick="{!c.handleSyncPriceListEntries}"
+                                                                          disabled="{!or(not(v.isEdit),v.isBusy)}"/>
+                                                    </aura:set>
 
-                                                        <aura:set attribute="prePending">
-                                                            <p>
-                                                                <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
-                                                                Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
-                                                            </p>
-                                                        </aura:set>
+                                                    <aura:set attribute="prePending">
+                                                        <p>
+                                                            <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
+                                                            Processing your Price List Entries sync request... Please wait a few moments and do not navigate away from this window.
+                                                        </p>
+                                                    </aura:set>
 
-                                                        <aura:set attribute="preSuccess">
-                                                            <p>
-                                                                <aura:if isTrue="{!v.meta.syncPriceListEntriesTotalErrors}">
-                                                                    <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
-                                                                    Processing your Price List Entries sync request... Completed with errors!
-                                                                    <aura:set attribute="else">
-                                                                        <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
-                                                                        Processing your Price List Entries sync request... Completed.
-                                                                    </aura:set>
-                                                                </aura:if>
-                                                            </p>
-                                                        </aura:set>
-                                                    </c:aura_BatchProgress>
-                                                </aura:if>
+                                                    <aura:set attribute="preSuccess">
+                                                        <p>
+                                                            <aura:if isTrue="{!v.meta.syncPriceListEntriesTotalErrors}">
+                                                                <lightning:icon iconName="utility:info" variant="warning" class="slds-show_inline" size="small"/>
+                                                                Processing your Price List Entries sync request... Completed with errors!
+                                                                <aura:set attribute="else">
+                                                                    <lightning:icon iconName="utility:success" variant="success" class="slds-show_inline" size="small"/>
+                                                                    Processing your Price List Entries sync request... Completed.
+                                                                </aura:set>
+                                                            </aura:if>
+                                                        </p>
+                                                    </aura:set>
+                                                </c:aura_BatchProgress>
+                                                <!--                                                </aura:if>-->
                                             </aura:set>
                                         </c:aura_BatchProgress>
                                     </aura:set>
@@ -309,7 +309,7 @@
                                                 </p>
                                             </aura:set>
                                             <aura:set attribute="afterSuccess">
-                                                <aura:if isTrue="{!and(not(v.meta.syncProductsTotalErrors), not(v.meta.syncPricebooksTotalErrors))}">
+<!--                                                <aura:if isTrue="{!and(not(v.meta.syncProductsTotalErrors), not(v.meta.syncPricebooksTotalErrors))}">-->
                                                     <c:aura_BatchProgress aura:id="syncPricebookEntriesProcessor"
                                                                           response="{!v.meta.syncPricebookEntriesResponse}"
                                                                           job="{!v.meta.syncPricebookEntriesJob}"
@@ -342,7 +342,7 @@
                                                             </p>
                                                         </aura:set>
                                                     </c:aura_BatchProgress>
-                                                </aura:if>
+<!--                                                </aura:if>-->
                                             </aura:set>
                                         </c:aura_BatchProgress>
                                     </aura:set>
