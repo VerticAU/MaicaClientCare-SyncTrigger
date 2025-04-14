@@ -79,16 +79,16 @@ public without sharing class SyncPriceListEntriesBatch extends AbstractProcessor
     }
 
     public void finish(Database.BatchableContext bc) {
-        List<maica_cc__Log__c> errorLogs = [
-                SELECT Id
-                FROM maica_cc__Log__c
-                WHERE maica_cc__Type__c = 'Error'
-                AND maica_cc__Job_Id__c = :('' + bc?.getJobId()).left(15)
-        ];
-
-        if (errorLogs.isEmpty()) {
+//        List<maica_cc__Log__c> errorLogs = [
+//                SELECT Id
+//                FROM maica_cc__Log__c
+//                WHERE maica_cc__Type__c = 'Error'
+//                AND maica_cc__Job_Id__c = :('' + bc?.getJobId()).left(15)
+//        ];
+//
+//        if (errorLogs.isEmpty()) {
             delete [SELECT Id FROM maica_cc__Price_List_Entry__c WHERE Price_Book_Entry__c = NULL];
-        }
+//        }
     }
 
     public override Response process(Request request) {
