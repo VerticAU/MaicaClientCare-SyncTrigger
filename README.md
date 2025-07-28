@@ -1,5 +1,9 @@
 [![Deploy to Salesforce](https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png)](https://githubsfdeploy.herokuapp.com)
 
+> **Important:**  
+> The [`MaicaClientCare-Common`](https://github.com/VerticAU/MaicaClientCare-Common) package must be deployed **prior to** installing or deploying any other MaicaClientCare-related packages
+
+
 ## Solution Overview
 
 The **Maica Sync Trigger for Products <> Support Items** automates the bi-directional synchronisation of **Maica Support Item, Price List, and Price List Entry** records with **Salesforce Product, Price Book, and Price Book Entry** records.
