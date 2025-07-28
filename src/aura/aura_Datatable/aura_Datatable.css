@@ -1,7 +1,0 @@
-.THIS table.slds-table{
-    min-height: 60px;
-}
-
-.THIS table.slds-table > tbody > tr > td > lightning-spinner{
-    height: inherit !important;
-}
